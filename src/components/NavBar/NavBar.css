@@ -1,0 +1,9 @@
+.nav-color{
+    background-color: darkgray;
+}
+
+@media(min-width:576px){
+    .navbar-menu{
+        display: none!important;
+    }
+}
