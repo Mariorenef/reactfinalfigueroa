@@ -1,5 +1,5 @@
 import '../css/footer.css';
-import login from './Login/login';
+import Login from "./Login/login"
 function Footer() {
     return (
         <footer className='mt-5'>

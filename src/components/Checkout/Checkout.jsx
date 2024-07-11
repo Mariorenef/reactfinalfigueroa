@@ -3,6 +3,7 @@ import CheckoutForm from "../CheckoutForm/CheckoutForm";
 import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartContext";
 import { db } from "../../Service/Firebase/firebaseConfig.js";
+
 function Checkout() {
     const [loading, setLoading] = useState(false);
     const [stockOk, setstockOk] = useState(false);

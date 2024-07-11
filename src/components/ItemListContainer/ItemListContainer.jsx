@@ -1,10 +1,8 @@
-
-import React,{ useEffect, useState } from "react";
-import ItemList from "../ItemList/ItemList.jsx";
+import React, { useEffect, useState } from "react";
+import ItemList from "../ItemList/ItemList";
 import { useParams } from "react-router-dom";
-import { getDocs, collection, query, where } from "firebase/firestore";
-import { db } from "../../Service/Firebase/firebaseConfig.js";
-
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../Service/Firebase/firebaseConfig";
 
 function ItemListContainer() {
     const [products, setProducts] = useState([]);
@@ -12,31 +10,36 @@ function ItemListContainer() {
     const { categoryId } = useParams();
 
     useEffect(() => {
-        setLoading(true);
-        const collectionRef = categoryId
-            ? query(collection(db, 'productos'), where('category', '==', categoryId))
-            : collection(db, 'productos');
-        getDocs(collectionRef)
-            .then(response => {
-                const productsAdapted = response.docs.map(doc => {
-                    const data = doc.data();
-                    return { id: doc.id, ...data };
-                });
+        const fetchProducts = async () => {
+            setLoading(true);
+            try {
+                const collectionRef = categoryId
+                    ? query(collection(db, 'productos'), where('category', '==', categoryId))
+                    : collection(db, 'productos');
+                const response = await getDocs(collectionRef);
+                const productsAdapted = response.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
                 setProducts(productsAdapted);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-            .finally(() => {
+            } catch (error) {
+                console.error("Error fetching products: ", error);
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchProducts();
     }, [categoryId]);
+
     return (
-        <>
-            <div className="container">
+        <div className="container">
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
                 <ItemList products={products} />
-            </div>
-        </>
+            )}
+        </div>
     );
 }
 

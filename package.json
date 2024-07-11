@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
-    "firebase": "^10.12.2",
+    "bootstrap-icons": "^1.11.3",
+    "firebase": "^10.12.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.24.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -27,5 +28,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "vite": "^5.3.1"
+    
   }
 }
+
